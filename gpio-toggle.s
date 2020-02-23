@@ -17,7 +17,7 @@
 */
 
 /*
-   This preamble tells the assembler what syntax, CPU target and ISA to use for
+   This preamble tells the assembler what syntax and CPU target to use for
    this file.
 */
 .cpu cortex-m4
