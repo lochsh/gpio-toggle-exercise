@@ -17,10 +17,13 @@
 */
 
 /*
-   This preamble tells the assembler what syntax and CPU target to use for
-   this file.
+   You can happily ignore this line and its explanation.
+
+   This preamble tells the assembler what syntax to use for this file. It used
+   to be that Thumb and ARM encoded instructions had different syntaxes. The
+   introduction of the ARM "Unified Assembler Language" means we can use the
+   same syntax for both.
 */
-.cpu cortex-m4
 .syntax unified
 
 /*
