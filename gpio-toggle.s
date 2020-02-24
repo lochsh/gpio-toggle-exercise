@@ -33,8 +33,9 @@
 .thumb_func
 main:
     /*
-       In order to use a GPIO pin, we must enable its clock. This synchronises
-       the GPIO pin with the rest of the microcontroller.
+       In order to use a GPIO, we must enable its clock. If its clock is not
+       enabled, it is effectively switched off, and will not respond to any
+       reads or writes. The clock defaults to being off in order to save power.
 
        Section 2.3 in [mcu-ref-man] Section 2.3 shows the memory map of our
        microcontroller, the STM32F4. Look for the "RCC" entry. RCC stands for
