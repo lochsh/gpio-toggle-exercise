@@ -33,7 +33,8 @@
    This preamble tells the assembler that this function is Thumb encoded. This
    is important because our target only supports this encoding.
 
-   It also tells the assembler to expose the symbol `main` to the linker.
+   The preamble also tells the assembler to expose the symbol `main` to the
+   linker.
  */
 .thumb_func
 .global main
