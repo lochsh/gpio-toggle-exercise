@@ -94,3 +94,6 @@ main:
 
        Now store that value in the GPIOA_MODER register as before.
     */
+
+.section .vector_table.reset_vector
+.word main
