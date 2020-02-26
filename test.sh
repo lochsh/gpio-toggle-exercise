@@ -8,7 +8,7 @@ qemu-system-gnuarmeclipse \
     -nographic \
     -semihosting-config enable=on,target=native \
     -gdb tcp::3333 \
-    -kernel $1 &> /dev/null &
+    -kernel $TARGET &> /dev/null &
 QEMU_PID=$!
 
 function read_address() {
