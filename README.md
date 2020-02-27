@@ -74,10 +74,6 @@ This should give you output similar to this:
 ✘ GPIOA_ODR was 0x00000000, want 0x00000100
 ```
 
-You can also pull the image from DockerHub at
-[lochsh/gpio-toggle](https://hub.docker.com/repository/docker/lochsh/gpio-toggle).
-
-
 ### Testing the assembly without Docker
 It's intended that the testing is done via Docker for the sake of portability.
 If you're willing to figure some things out for yourself, here is what you need
