@@ -82,6 +82,7 @@ main:
        output. First, find the start address for GPIOA registers from the
        memory map in [mcu-ref-man], and store it in r0.
     */
+    @ Store start address of GPIOA registers
 
     /*
        Have a look at [mcu-ref-man] 8.4 for information on GPIO registers. We
@@ -98,7 +99,70 @@ main:
 
        Now store that value in the GPIOA_MODER register as before.
     */
+    @ Set GPIOA_MODER to make GPIOA8 an output
+
+/*
+   This is the loop we want to put the GPIO toggling into. We create the loop
+   by adding a label (.loop) and then using a branch instruction to jump back
+   to the label (`b .loop`).
+*/
 .loop:
+    /*
+       Now we want to switch between clearing and setting GPIOA8, to toggle the
+       output.
+
+       We're going to use the bit set/reset register for this, so look in
+       [mcu-ref-man] for GPIOx_BSRR.
+
+       We could instead just write to the output data register (ODR), but using
+       the BSRR register gives us atomic updates, which is important in
+       protecting against race conditions.
+
+       Writing to the BSRR register will result in the ODR being updated.
+
+       To clear the GPIO, we need to set the BR8 bit, as explained in
+       [mcu-ref-man] 8.4.7.
+    */
+    @ Set BR8 field in GPIOA_BSRR
+
+    /*
+       This creates a delay, so that our GPIO toggling happens slow enough to
+       see (e.g. if the GPIO was connected to an LED, we would see it
+       flashing).
+
+       We're putting a big number in r2 (0xc3500), then decrementing it until
+       it reaches zero:
+            * `sub` is a subtract instruction
+            * using `subs` means the status register will be updated, including
+                a flag to indicate whether the result was zero
+            * `bne` (branch-not-equal) branches if that flag in the status
+                register is not set
+    */
+    @ Delay
+    movw r2, #0x3500
+    movt r2, #0x000c
+.L1:
+    subs r2, #0x0001
+    bne .L1
+
+    /*
+       Now we just need to set the GPIO, the same way we cleared it above!
+       This time, we need the BS8 bit, as explained in [mcu-ref-man] 8.4.7.
+    */
+    @ Set BS8 field in GPIOA_BSRR
+
+    /* A second delay just like the last one*/
+    @ Delay
+    movw r2, #0x3500
+    movt r2, #0x000c
+.L2:
+    subs r2, #0x0001
+    bne .L2
+
+    /*
+       It's important to leave the `bkpt` (breakpoint) instruction in there, as
+        this is needed by the test suite for inspecting the registers.
+    */
     bkpt
     b .loop
 
