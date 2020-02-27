@@ -51,6 +51,8 @@ comments explaining the existing code and what to do.
 The comments also link to the Cortex M4 User Guide and the reference manual for
 various STM32F4 models, which you'll need during the exercise
 
+A fully working version is available in `sneak-peek/working/gpio-toggle.s`.
+
 ### Using docker for testing the assembly you write in the exercise
 Docker can be used to run the tests for the exercise so that you can check your
 assembly is doing the right thing, even if you don't have a development board
