@@ -14,9 +14,7 @@ RUN wget https://github.com/xpack-dev-tools/qemu-arm-xpack/releases/download/v2.
 ENV PATH="xPacks/qemu-arm/2.8.0-8/bin:${PATH}"
 
 # Copy necessary files
-COPY gpio-toggle.s .
-COPY link.ld .
-COPY Makefile .
-COPY test.sh .
+COPY gpio-toggle.s link.ld Makefile test.sh ./
 
+# Run tests
 CMD make test
