@@ -126,24 +126,20 @@ main:
     @ Set BR8 field in GPIOA_BSRR
 
     /*
-       This creates a delay, so that our GPIO toggling happens slow enough to
-       see (e.g. if the GPIO was connected to an LED, we would see it
-       flashing).
+       You can optionally create a delay, so that our GPIO toggling happens
+       slow enough to see (e.g. if the GPIO was connected to an LED, we would
+       see it flashing).
 
-       We're putting a big number in r2 (0xc3500), then decrementing it until
-       it reaches zero:
-            * `sub` is a subtract instruction
-            * using `subs` means the status register will be updated, including
-                a flag to indicate whether the result was zero
-            * `bne` (branch-not-equal) branches if that flag in the status
-                register is not set
+       Put some big number in r2, then decrement it until it reaches zero.
+       You'll need a loop for this, which you can call whatever you want.
+       Instructions for creating a loop are above, in the comment before
+       `.loop`.
+
+       You can read about the `sub` command in [cpu-user-guide] 3.5.1, and
+       branching in 3.10.
+       Hint: what would using `subs` do?
     */
     @ Delay
-    movw r2, #0x3500
-    movt r2, #0x000c
-.L1:
-    subs r2, #0x0001
-    bne .L1
 
     /*
        Now we just need to set the GPIO, the same way we cleared it above!
@@ -151,13 +147,8 @@ main:
     */
     @ Set BS8 field in GPIOA_BSRR
 
-    /* A second delay just like the last one*/
+    /* Optionally add a second delay, just like the last one */
     @ Delay
-    movw r2, #0x3500
-    movt r2, #0x000c
-.L2:
-    subs r2, #0x0001
-    bne .L2
 
     /*
        It's important to leave the `bkpt` (breakpoint) instruction in there, as
