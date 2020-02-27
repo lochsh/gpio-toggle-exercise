@@ -65,13 +65,15 @@ $ docker build -t gpio-toggle .
 $ docker run gpio-toggle
 ```
 
+You can also pull the image from DockerHub at
+[lochsh/gpio-toggle](https://hub.docker.com/repository/docker/lochsh/gpio-toggle).
+
 This should give you output similar to this:
 ```
 ✓ AHB1ENR correctly set to 0x00000001
 ✘ GPIOA_MODER was 0xa8000000, want 0xa8010000
 ✘ GPIOA_ODR was 0x00000000, want 0x00000100
 ```
-
 
 ### Testing the assembly without Docker
 It's intended that the testing is done via Docker for the sake of portability.
