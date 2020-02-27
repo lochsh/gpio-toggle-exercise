@@ -44,7 +44,7 @@ main:
        enabled, it is effectively switched off, and will not respond to any
        reads or writes. The clock defaults to being off in order to save power.
 
-       Section 2.3 in [mcu-ref-man] Section 2.3 shows the memory map of our
+       [mcu-ref-man] Section 2.3 shows the memory map of our
        microcontroller, the STM32F4. Look for the "RCC" entry. RCC stands for
        Reset and Clock Control. You should see that the start address for
        registers of this type is 0x40023800.
