@@ -22,8 +22,8 @@ instruction is at the memory location stored in the PC.
 In our exercise, we will be writing assembly to run on an STM32F4
 microcontroller. The microcontroller contains a Cortex M4 CPU, flash memory,
 RAM, and a lot of peripherals. Some peripherals are used for specific purposes,
-like communication over a protocol. There are also General Purpose Input Output
-peripherals.
+like communication over a protocol. There are also General Purpose Input/Output
+(GPIO) peripherals.
 
 Each of these peripherals has registers associated with it, which are mapped in
 memory. The peripherals can be controlled by writing to these registers. This
@@ -31,7 +31,7 @@ is what our coding exercise will consist of.
 
 ### Instruction
 You can think of a CPU instruction as the smallest possible unit of software
-that a CPU can execute. When you compile a executeable C program, it is
+that a CPU can execute. When you compile a executable C program, it is
 compiled to machine code, and that machine code is made up of instructions.
 
 When we write assembly, we are writing out instructions in a human readable
