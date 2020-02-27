@@ -74,7 +74,6 @@ main:
 
     @ Store value in r1 at the memory address in r0 with offset 0x30
     str r1, [r0, #0x30]
-    bkpt
 
     /*
        Now it's your turn to write some assembly.
@@ -99,6 +98,9 @@ main:
 
        Now store that value in the GPIOA_MODER register as before.
     */
+.loop:
+    bkpt
+    b .loop
 
 .section .vector_table.reset_vector
 .word main

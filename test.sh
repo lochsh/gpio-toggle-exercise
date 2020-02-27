@@ -1,20 +1,26 @@
 #!/usr/bin/env bash
-set -eu
+set -euo pipefail
 TARGET=$1
 
 qemu-system-gnuarmeclipse \
     -cpu cortex-m4 \
     -machine STM32F4-Discovery \
-    -nographic \
-    -semihosting-config enable=on,target=native \
     -gdb tcp::3333 \
-    -kernel $TARGET &> /dev/null &
+    -nographic \
+    -kernel "${TARGET}" > /dev/null &
 QEMU_PID=$!
+
+if ! pgrep -x $QEMU_PID > /dev/null
+then
+    echo -ne "\033[31m Failed to start QEMU"
+    echo -e "\033[0m"
+    exit 1
+fi
 
 function read_address() {
     local ADDRESS=$1
     VALUE=$(gdb-multiarch \
-        -q ${TARGET} \
+        -q "${TARGET}" \
         -ex "target remote :3333" \
         -ex "x/1xw ${ADDRESS}" \
         --batch | tail -1 | cut -f 2)
@@ -25,13 +31,15 @@ function test_address() {
     local REGISTER_NAME=$2
     local EX_VALUE=$3
 
-    read_address ${ADDRESS}
-    if [ $VALUE = ${EX_VALUE} ]
+    read_address "${ADDRESS}"
+    if [ "$VALUE" = "${EX_VALUE}" ]
     then
-        echo -e "\033[32m✓ ${REGISTER_NAME} set correctly to ${EX_VALUE}"
+        echo -ne "\033[32m✓ ${REGISTER_NAME} correctly set to ${EX_VALUE}"
     else
-        echo -e "\033[31m✘ ${REGISTER_NAME} was ${VALUE}, want ${EX_VALUE}"
+        echo -ne "\033[31m✘ ${REGISTER_NAME} was ${VALUE}, want ${EX_VALUE}"
     fi
+
+    echo -e "\033[0m"
 }
 
 test_address "0x40023830" "AHB1ENR" "0x00000001"
