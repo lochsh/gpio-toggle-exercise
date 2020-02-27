@@ -92,12 +92,12 @@ main:
        Find out:
 
            What is this register's offset from the address we just stored in
-               r0?
+           r0?
 
-           What value do we need to set the register to in order to set GPIOA8
-               to an output (assuming we don't care about the other pins)?
+           What is the reset value of the register? You'll need to change one
+           bit in order to set GPIOA8 to an output to get the value we want.
 
-       Now store that value in the GPIOA_MODER register as before.
+           Store that value in the GPIOA_MODER register as before.
     */
     @ Set GPIOA_MODER to make GPIOA8 an output
 
