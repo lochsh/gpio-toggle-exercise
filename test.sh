@@ -10,7 +10,7 @@ qemu-system-gnuarmeclipse \
     -kernel "${TARGET}" > /dev/null &
 QEMU_PID=$!
 
-if ! pgrep -x $QEMU_PID > /dev/null
+if [ ! -d "/proc/${QEMU_PID}" ]
 then
     echo -ne "\033[31m Failed to start QEMU"
     echo -e "\033[0m"
