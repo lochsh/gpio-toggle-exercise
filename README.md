@@ -25,9 +25,11 @@ RAM, and a lot of peripherals. Some peripherals are used for specific purposes,
 like communication over a protocol. There are also General Purpose Input/Output
 (GPIO) peripherals.
 
-Each of these peripherals has registers associated with it, which are mapped in
-memory. The peripherals can be controlled by writing to these registers. This
-is what our coding exercise will consist of.
+On a separate memory bus to the CPU registers, our STM32 has about a thousand
+configuration and status registers, also often called memory-mapped IO.  These
+are basically pre-defined structs that live somewhere in memory, and you read &
+write to them in order to configure the peripherals.  In our case, we'll be
+writing to these to configure a GPIO, which will be connected to our LED.
 
 ### Instruction
 You can think of a CPU instruction as the smallest possible unit of software
