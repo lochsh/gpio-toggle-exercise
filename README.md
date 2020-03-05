@@ -29,7 +29,7 @@ On a separate memory bus to the CPU registers, our STM32 has about a thousand
 configuration and status registers, also often called memory-mapped IO.  These
 are basically pre-defined structs that live somewhere in memory, and you read &
 write to them in order to configure the peripherals.  In our case, we'll be
-writing to these to configure a GPIO, which will be connected to our LED.
+writing to these to configure a GPIO.
 
 ### Instruction
 You can think of a CPU instruction as the smallest possible unit of software
